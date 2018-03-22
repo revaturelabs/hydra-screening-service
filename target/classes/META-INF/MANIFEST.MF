@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
-Implementation-Title: SkillsService
-Implementation-Version: 1
+Implementation-Title: QuestionRepositoryService
+Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: sunri
-Implementation-Vendor-Id: com.revature.hydra.skills
+Implementation-Vendor-Id: com.revature
 Build-Jdk: 1.8.0_161
-Implementation-URL: http://projects.spring.io/spring-boot/SkillsServic
- e/
+Implementation-URL: http://projects.spring.io/spring-boot/QuestionServ
+ ice/
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 
