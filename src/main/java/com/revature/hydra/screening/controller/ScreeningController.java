@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.beans.SimpleScreening;
 import com.revature.beans.SimpleTrainee;
-import com.revature.beans.ViolationType;
+import com.revature.hydra.screening.data.ScreeningRepository;
 import com.revature.hydra.screening.service.ScreeningCompositionService;
 
 @RestController
 @CrossOrigin
 public class ScreeningController {
+	
+	@Autowired
+	private ScreeningRepository screeningRepository;
 
 	private ScreeningCompositionService scs;
 
@@ -48,18 +52,22 @@ public class ScreeningController {
 	 * 
 	 * 
 	 */
-	@RequestMapping(value = "/start", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/screening/start", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> createScreeningAndReturnQuestionsFromTags(
-			@RequestParam(name="tagID") Integer[] tagId,
 			@RequestParam(name="traineeId") Integer traineeId,
 			@RequestParam(name="beginTime") Date date,
-			@RequestParam(name="violationTypeId") ViolationType[] violationTypeId,
-			@RequestParam(name="aboutMeComment") String aboutMeComment){
+			@RequestParam(name="trainerId") Integer trainerId,
+			@RequestParam(name="skillTypeId") Integer skillTypeId){
 		
-		return new ResponseEntity<>(new Integer(1),HttpStatus.OK);
+		SimpleScreening screening = new SimpleScreening(trainerId, traineeId,
+				skillTypeId, 0.0, "", "",
+				"", date, null, false,
+				"pending");
+		screeningRepository.save(screening);
+		return new ResponseEntity<>(screening.getScreeningId(),HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/generalcomment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/screening/generalcomment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void storeGeneralComment(@RequestParam(name="screeningId") Integer screeningId){
 		
 	}
