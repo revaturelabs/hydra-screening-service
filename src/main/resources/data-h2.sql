@@ -46,28 +46,6 @@ values (8 , 3 , 5507 , 2, 50.0, 'intoComment8','generalComment8','softskillComme
  
 COMMIT;
 
-
---------------------------------------------------------
---  DDL for Sequence SOFT_SKILL_VIOLATION_SEQUENCE
---------------------------------------------------------
-DROP SEQUENCE IF EXISTS SOFT_SKILL_VIOLATION_SEQUENCE;
-CREATE SEQUENCE  IF NOT EXISTS  SOFT_SKILL_VIOLATION_SEQUENCE  MINVALUE 5600  INCREMENT BY 1 START WITH 5600;
-
-Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION, TIME) 
-values (1, 1, 'using bad words', '2018-03-01');
- Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION, TIME) 
-values (2, 2, 'using bad words', '2018-03-02');
-Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION, TIME) 
-values (3, 2, 'bad dress', '2018-03-03');
-Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION, TIME) 
-values (4, 3, 'bad dress', '2018-03-04');
-Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION, TIME) 
-values (5, 4, 'bad dress', '2018-03-05');
-Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION, TIME) 
-values (6, 4, 'not focus', '2018-03-06');
-Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION, TIME) 
-values (7, 5, 'not focus', '2018-03-07');
- 
 --------------------------------------------------------
 --  DDL for Sequence VIOLATION_SEQUENCE
 --------------------------------------------------------
@@ -75,11 +53,35 @@ DROP SEQUENCE IF EXISTS VIOLATION_SEQUENCE;
 CREATE SEQUENCE  IF NOT EXISTS  VIOLATION_SEQUENCE  MINVALUE 5600  INCREMENT BY 1 START WITH 5600;
 
 Insert into VIOLATION_TYPE (VIOLATION_ID, VIOLATION, DESCRIPTION) 
-values (1, 'using bad words', 'the participant used F words and S words');
+values (1, 'using bad words', 'the participant used F words, B words, and/or S words');
 
 Insert into VIOLATION_TYPE (VIOLATION_ID, VIOLATION, DESCRIPTION) 
-values (2, 'bad dress', 'no tie, no suit');
+values (2, 'bad dress', 'no tie, no suit, no job');
 
 Insert into VIOLATION_TYPE (VIOLATION_ID, VIOLATION, DESCRIPTION) 
-values (3, 'not focus', 'the participant did not focus the question itself');
+values (3, 'not focused', 'Focused not on the question, the participant was.');
+
+COMMIT;
+
+--------------------------------------------------------
+--  DDL for Sequence SOFT_SKILL_VIOLATION_SEQUENCE
+--------------------------------------------------------
+DROP SEQUENCE IF EXISTS SOFT_SKILL_VIOLATION_SEQUENCE;
+CREATE SEQUENCE  IF NOT EXISTS  SOFT_SKILL_VIOLATION_SEQUENCE  MINVALUE 5600  INCREMENT BY 1 START WITH 5600;
+
+Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
+values (1, 1, 1, 'After failing a question, candidate swore not unlike a sailor.', '2018-03-01');
+Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME)  
+values (2, 2, 1, 'Never before have I heard such a vile stream of expletives.', '2018-03-02');
+Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
+values (3, 3, 2, 'Pajamas. Looked comfortable. Too bad he will not be comfortable at a new job.', '2018-03-03');
+Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
+values (4, 4, 2, 'Not sure, but think he was not wearing pants. Awkward. Hard pass.', '2018-03-04');
+Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
+values (5, 5, 2, 'Said he does not own a suit or tie. Too bad, so sad.', '2018-03-05');
+Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME)  
+values (6, 6, 3, 'He kept wandering off topic, and I think he might have been on Reddit.', '2018-03-06');
+Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
+values (7, 7, 3, 'Could not keep a thought straight.', '2018-03-07');
+ 
 

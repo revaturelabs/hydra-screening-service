@@ -1,5 +1,6 @@
 package com.revature.hydra.screening.data;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,13 +27,15 @@ public interface ScreeningRepository extends JpaRepository<SimpleScreening, Inte
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	void changeGeneralCommentaryByScreeningId(String generalComment, Integer screeningId);
 	
-	@Query("select sv from SoftSkillViolation sv where sv.screening =?1")
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	List<SoftSkillViolation> findSoftSkillViolationsByScreeningId(SimpleScreening ss);
-	
 	@Modifying(clearAutomatically = true)
 	@Query("update SimpleScreening s set s.aboutMeCommentary = ?1 where s.screeningId = ?2")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	void updateaboutMeCommentaryByScreeningId(String aboutMeCommentary, Integer screeningId);
 	
+	@Modifying(clearAutomatically = true)
+	@Query("update SimpleScreening s set s.status = ?1, s.softSkillsVerdict = ?2, s.softSkillCommentary = ?3,"+
+			"s.endDateTime = ?4, s.compositeScore = ?5 where s.screeningId = ?6")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	void updateQuestionByScreeningId(String status, boolean softSkillsVerdict, String softSkillCommentary, 
+			Date endDateTime, Double compositeScore, Integer screeningId);
 }

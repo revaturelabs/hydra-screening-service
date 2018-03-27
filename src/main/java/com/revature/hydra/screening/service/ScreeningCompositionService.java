@@ -39,7 +39,7 @@ public class ScreeningCompositionService {
 	 * 
 	 */
 	public SimpleTrainee getOneTrainee(Integer id) {
-		SimpleTrainee st =scms.sendSingleTraineeRequest(id);
+		SimpleTrainee st = scms.sendSingleTraineeRequest(id);
 
 		return st;
 	}
@@ -66,8 +66,7 @@ public class ScreeningCompositionService {
 	 * Get SoftSkillViolations by ScreeningId
 	 */
 	public List<SoftSkillViolation> softSkillViolationsByScreeningId (Integer screeningId){
-		SoftSkillViolation ss = new SoftSkillViolation();
-		List<SoftSkillViolation> sv = screeningRepository.findSoftSkillViolationsByScreeningId(new SimpleScreening(screeningId));
+		List<SoftSkillViolation> sv = softSkillViolationRepository.findSoftSkillViolationsByScreeningId(new SimpleScreening(screeningId));
 		return sv;
 	}
 	
