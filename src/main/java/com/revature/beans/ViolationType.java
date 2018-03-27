@@ -13,8 +13,9 @@ import javax.persistence.Table;
 public class ViolationType {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="SCREENING_SEQUENCE")
-	@SequenceGenerator(name="SCREENING_SEQUENCE",sequenceName="SCREENING_SEQUENCE")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="VIOLATION_SEQUENCE")
+	@SequenceGenerator(name="VIOLATION_SEQUENCE",sequenceName="VIOLATION_SEQUENCE")
+	@Column(name="VIOLATION_ID")
 	private Integer violationTypeId;
 	
 	@Column(name="VIOLATION")
@@ -26,11 +27,18 @@ public class ViolationType {
 	public ViolationType() {
 		super();
 	}
+	
+	public ViolationType(String violationTypeText, String description) {
+		super();
+		this.violationTypeText = violationTypeText;
+		this.description = description;
+	}
 
-	public ViolationType(Integer violationTypeId, String violationTypeText) {
+	public ViolationType(Integer violationTypeId, String violationTypeText, String description) {
 		super();
 		this.violationTypeId = violationTypeId;
 		this.violationTypeText = violationTypeText;
+		this.description = description;
 	}
 
 	public Integer getViolationTypeId() {
@@ -47,6 +55,14 @@ public class ViolationType {
 
 	public void setViolationTypeText(String violationTypeText) {
 		this.violationTypeText = violationTypeText;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

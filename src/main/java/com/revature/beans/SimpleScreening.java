@@ -51,6 +51,11 @@ public class SimpleScreening {
 		super();
 	}
 
+	public SimpleScreening(Integer screeningId) {
+		super();
+		this.screeningId = screeningId;
+	}
+	
 	public SimpleScreening(Integer trainerId, Integer traineeId, Integer skillTypeId, Double compositeScore,
 			String aboutMeCommentary, String generalCommentary, String softSkillCommentary, Date startDateTime,
 			Date endDateTime, Boolean softSkillsVerdict, String status) {

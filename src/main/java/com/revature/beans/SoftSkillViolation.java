@@ -22,8 +22,8 @@ import org.hibernate.annotations.CreationTimestamp;
 public class SoftSkillViolation {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="softSkillViolationSequence")
-	@SequenceGenerator(allocationSize=1,name="softSkillViolationSequence",sequenceName="SOFT_SKILL_VIOLATION_S1")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="SOFT_SKILL_VIOLATION_SEQUENCE")
+	@SequenceGenerator(allocationSize=1,name="SOFT_SKILL_VIOLATION_SEQUENCE",sequenceName="SOFT_SKILL_VIOLATION_SEQUENCE")
 	@Column(name="SOFT_SKILL_VIOLATION_ID")
 	private int id;
 	
