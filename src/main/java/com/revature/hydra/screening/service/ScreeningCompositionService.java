@@ -1,25 +1,23 @@
 package com.revature.hydra.screening.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.JsonObject;
 import com.revature.beans.SimpleScreening;
 import com.revature.beans.SimpleTrainee;
 import com.revature.beans.SoftSkillViolation;
 import com.revature.beans.ViolationType;
-import com.revature.hydra.screening.controller.ScreeningController;
 import com.revature.hydra.screening.data.ScreeningRepository;
 import com.revature.hydra.screening.data.SoftSkillViolationRepository;
 import com.revature.hydra.screening.data.ViolationTypeRepository;
 
+/**
+ * A service for interacting with the data access repositories
+ * 
+ * @author batem, sungkwon, echamp
+ */
 @Service
 public class ScreeningCompositionService {
 
@@ -33,12 +31,11 @@ public class ScreeningCompositionService {
 	@Autowired
 	private ScreeningCompositionMessagingService scms; 
 	
-	/*
-	 * Test class using trainee service
+	/**
+	 * A test class for interacting with the Trainee service.
 	 * 
-	 * @param 
-	 * @return SimpleTrainee
-	 * 
+	 * @param id - the unique id of a Trainee
+	 * @return A SimpleTrainee object
 	 */
 	public SimpleTrainee getOneTrainee(Integer id) {
 		SimpleTrainee st = scms.sendSingleTraineeRequest(id);
@@ -47,43 +44,50 @@ public class ScreeningCompositionService {
 	}
 	
 	/**
+	 * Deletes a SoftSkillViolation by its unique id.
 	 * 
-	 * 
-	 * @param softSkillViolationId
+	 * @param softSkillViolationId - the unique id of a softSkillViolation
 	 */
 	public void deleteSoftSkillViolation(Integer softSkillViolationId) {
 		softSkillViolationRepository.delete(softSkillViolationId);
 	}
 	
-	/*
-	 * @param
+	/**
 	 * Update aboutMeCommentary by ScreeningId
+	 * 
+	 * @param aboutMeCommentary - the comment to be persisted to the database.
+	 * @param screeningId - the unique id of a screening
 	 */
 	public void updateAboutMeCommentary(String aboutMeCommentary, Integer screeningId) {
 		screeningRepository.changeAboutMeCommentaryByScreeningId(aboutMeCommentary, screeningId);
 	}
 	
-	/*
-	 * @param
-	 * Get SoftSkillViolations by ScreeningId
+	/**
+	 * Returns all SoftSkillViolations related to a screeningId
+	 * 
+	 * @param screeningId - the unique id of a screening
+	 * @return List of SoftSkillViolation objects
 	 */
-
 	public List<SoftSkillViolation> softSkillViolationsByScreeningId (Integer screeningId){
 		List<SoftSkillViolation> sv = softSkillViolationRepository.findByScreeningId(new SimpleScreening(screeningId));
 		return sv;
 	}
 	
-	/*
-	 * Get Violation Types
+	/**
+	 * Returns all ViolationType objects
+	 * 
+	 * @return List of ViolationType objects
 	 */
 	public List<ViolationType> violationTypes (){
 		List<ViolationType> vt = violationRepository.findAll();
 		return  vt;
 	}
 	
-	/*
-	 *  @param
-	 *  Update GeneralCommentary By ScreeningId
+	/**
+	 * Update GeneralCommentary By ScreeningId
+	 * 
+	 * @param generalCommentary - the comment to be persisted to the database
+	 * @param screeningId - the unique id of a screening
 	 */
 	public void updateGeneralCommentary(String generalCommentary, Integer screeningId) {
 		screeningRepository.changeGeneralCommentaryByScreeningId(generalCommentary, screeningId);

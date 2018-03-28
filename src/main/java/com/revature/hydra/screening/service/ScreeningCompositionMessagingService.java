@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 import com.google.gson.JsonObject;
 import com.revature.beans.SimpleTrainee;
 
+/**
+ * A service for composing RabbitMQ messages to other services in the Hydra MSA
+ * 
+ * @author sungkwon, echamp
+ *
+ */
 @Service	
 public class ScreeningCompositionMessagingService {
 	
@@ -21,6 +27,12 @@ public class ScreeningCompositionMessagingService {
 	 */
 	private static final String RABBIT_REPO_EXCHANGE = "revature.hydra.repos";
 	
+	/**
+	 * Requests a trainee from the trainee service
+	 * 
+	 * @param traineeId - the unique id of a trainee
+	 * @return A SimpleTrainee object
+	 */
 	public SimpleTrainee sendSingleTraineeRequest(Integer traineeId) {
 		JsonObject traineeRequest = new JsonObject();
 		
