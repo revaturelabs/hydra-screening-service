@@ -15,9 +15,9 @@ import com.revature.beans.SoftSkillViolation;
 public interface SoftSkillViolationRepository extends JpaRepository<SoftSkillViolation, Integer>{
 
 	@Modifying(clearAutomatically = true)
-	@Query("delete SoftSkillViolation where violation = ?1")
+	@Query("delete SoftSkillViolation where id = ?1")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	void deleteViolationByViolationType(String violationType);
+	void deleteBySoftSkillViolationId(Integer softSkillViolationId);
 	
 	@Query("select sv from SoftSkillViolation sv where sv.screeningId =?1")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)

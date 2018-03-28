@@ -1,6 +1,5 @@
 package com.revature.hydra.screening.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,16 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.beans.SimpleScreening;
-import com.revature.beans.SimpleTrainee;
 import com.revature.beans.SoftSkillViolation;
 import com.revature.beans.ViolationType;
 import com.revature.hydra.screening.data.ScreeningRepository;
 import com.revature.hydra.screening.data.SoftSkillViolationRepository;
 import com.revature.hydra.screening.service.ScreeningCompositionService;
+import com.revature.hydra.screening.wrapper.CommentaryWrapper;
 import com.revature.hydra.screening.wrapper.ViolationFlagWrapper;
 
 @RestController
@@ -79,9 +77,9 @@ public class ScreeningController {
 	 * @param violationID
 	 * @return
 	 */
-	@RequestMapping(value="/violation/delete/{violationID}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> deleteViolation (@PathVariable(value="violationID") Integer violationID) {
-		scs.deleteViolation(violationID);
+	@RequestMapping(value="/violation/delete/{softSkillViolationID}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> deleteSoftSkillViolation (@PathVariable(value="softSkillViolationID") Integer softSkillViolationID) {
+		scs.deleteSoftSkillViolation(softSkillViolationID);
 		return new ResponseEntity<String>("Delete Completed", HttpStatus.OK);
 	}
 
@@ -92,10 +90,10 @@ public class ScreeningController {
 	 * @return
 	 */
 	@RequestMapping(value="/screening/introcomment", method=RequestMethod.POST)
-	public ResponseEntity<String> updateAboutMeCommentary (@RequestBody SimpleScreening simpleScreening){
+	public ResponseEntity<String> updateAboutMeCommentary (@RequestBody CommentaryWrapper comment){
 		scs.updateAboutMeCommentary(
-				simpleScreening.getAboutMeCommentary(), 
-				simpleScreening.getScreeningId());
+				comment.comment, 
+				comment.screeningId);
 		return new ResponseEntity<String>("Update introComment Completed", HttpStatus.OK); 
 	}
 	
@@ -132,8 +130,8 @@ public class ScreeningController {
 	 * Store the general comment in the Screening entity
 	 */
 	@RequestMapping(value = "/screening/generalcomment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> storeGeneralComment(@RequestBody SimpleScreening simpleScreening){
-		scs.updateGeneralCommentary(simpleScreening.getGeneralCommentary(), simpleScreening.getScreeningId());
+	public ResponseEntity<String> storeGeneralComment(@RequestBody CommentaryWrapper comment){
+		scs.updateGeneralCommentary(comment.comment, comment.screeningId);
 		return new ResponseEntity<String>( "Update General Comment Success!",HttpStatus.OK);
 	}
 	
@@ -148,6 +146,5 @@ public class ScreeningController {
 				simpleScreening.getScreeningId());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
 	
 }

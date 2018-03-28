@@ -44,14 +44,14 @@ public class ScreeningCompositionService {
 		return st;
 	}
 	
-	/*
-	 * @param
-	 * Delete Violation by ViolationId
+	/**
+	 * 
+	 * 
+	 * @param softSkillViolationId
 	 */
-	public void deleteViolation(Integer violationId) {
-		ViolationType violationType = violationRepository.findByViolationTypeId(violationId);
-		softSkillViolationRepository.deleteViolationByViolationType(violationType.getViolationTypeText());
-	}	
+	public void deleteSoftSkillViolation(Integer softSkillViolationId) {
+		softSkillViolationRepository.deleteBySoftSkillViolationId(softSkillViolationId);
+	}
 	
 	/*
 	 * @param
