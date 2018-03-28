@@ -62,7 +62,7 @@ public class SimpleScreening {
 
 	public SimpleScreening(Integer trainerId, Integer traineeId, Integer skillTypeId, Double compositeScore,
 			String aboutMeCommentary, String generalCommentary, String softSkillCommentary, Date startDateTime,
-			Date endDateTime, Boolean softSkillsVerdict, String status) {
+			Date endDateTime, Boolean softSkillsVerdict, String status, SimpleScheduledScreening simpleScheduledScreening) {
 		super();
 		this.trainerId = trainerId;
 		this.traineeId = traineeId;
@@ -75,6 +75,7 @@ public class SimpleScreening {
 		this.endDateTime = endDateTime;
 		this.softSkillsVerdict = softSkillsVerdict;
 		this.status = status;
+		this.simpleScheduledScreening = simpleScheduledScreening;
 	}
 
 	/**

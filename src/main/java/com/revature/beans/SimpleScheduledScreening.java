@@ -18,13 +18,13 @@ public class SimpleScheduledScreening {
 	@SequenceGenerator(name = "SCHEDULED_SCREENING_SEQUENCE", sequenceName = "SCHEDULED_SCREENING_SEQUENCE")
 	@Column(name = "SCHEDULED_SCREENING_ID")
 	private Integer scheduledScreeningId;
-	@Column
+	@Column(name = "TRAINEE")
 	private Integer trainee;
-	@Column
+	@Column(name = "TRAINER")
 	private Integer trainer;
-	@Column
+	@Column(name = "STATUS")
 	private ScheduledStatus status;
-	@Column
+	@Column(name = "SCHEDULED_DATE")
 	private Date scheduledDate;
 
 	public SimpleScheduledScreening() {
