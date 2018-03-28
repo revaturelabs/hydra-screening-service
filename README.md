@@ -3,8 +3,8 @@
 
 This service contains the following methods for interacting with data:
 *softSkillViolationsByScreeningID
-	*Description
-		*Returns a List of softSkillViolations by a given screeningID.
+ *Description
+  *Returns a List of softSkillViolations by a given screeningID.
 	*Endpoint
 		*/screening/violation/{screeningID}
 *getViolationTypes
