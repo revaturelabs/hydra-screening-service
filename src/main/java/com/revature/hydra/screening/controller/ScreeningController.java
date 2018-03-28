@@ -1,6 +1,5 @@
 package com.revature.hydra.screening.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,6 +23,12 @@ import com.revature.hydra.screening.service.ScreeningCompositionService;
 import com.revature.hydra.screening.wrapper.CommentaryWrapper;
 import com.revature.hydra.screening.wrapper.ViolationFlagWrapper;
 
+/**
+ * The controller for incoming REST requests to the Screening service.
+ * 
+ * @author sungkwon, gin, echamp, batem, ahmed
+ *
+ */
 @RestController
 @CrossOrigin
 public class ScreeningController {
@@ -48,11 +53,10 @@ public class ScreeningController {
 	 */
 	
 	/**
+	 * Returns a list of softSkillViolation objects by ScreeningID
 	 * 
-	 * List of softSkillViolations by ScreeningID
-	 * 
-	 * @param screeningID
-	 * @return
+	 * @param screeningID - the unique id of a Screening
+	 * @return List of ViolationType objects
 	 */
 	@RequestMapping(value="/screening/violation/{screeningID}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<SoftSkillViolation>>  softSkillViolationsByScreeningID(@PathVariable(value="screeningID") Integer screeningID){
@@ -62,9 +66,9 @@ public class ScreeningController {
 	}
 	
 	/**
-	 * List of Violation
+	 * Returns a list of ViolationType objects representing all held in the database
 	 * 
-	 * @return
+	 * @return List of ViolationType objects
 	 */
 	@RequestMapping(value="/violation/all", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ViolationType>>getViolationTypes(){
@@ -73,10 +77,10 @@ public class ScreeningController {
 	}
 	
 	/**
-	 * Delete soft skill violation
+	 * Delete a soft skill violation by its unique id
 	 * 
-	 * @param violationID
-	 * @return
+	 * @param softSkillViolationID - the unique id of the SoftSkillViolation object to be deleted
+	 * @return A ResponseEntity that contains a delete completed message and an HttpStatus of OK.
 	 */
 	@RequestMapping(value="/violation/delete/{softSkillViolationID}", method= RequestMethod.GET)
 	public ResponseEntity<String> deleteSoftSkillViolation (@PathVariable(value="softSkillViolationID") Integer softSkillViolationID) {
@@ -85,10 +89,10 @@ public class ScreeningController {
 	}
 
 	/**
-	 * Update AboutMeCommentary of a screening
+	 * Update the AboutMeCommentary variable of a Screening object
 	 * 
-	 * @param simpleScreening
-	 * @return
+	 * @param comment - CommentaryWrapper object that represents a comment and screeningID
+	 * @return A ResponseEntity containing a success message and an HttpStatus of OK
 	 */
 	@RequestMapping(value="/screening/introcomment", method=RequestMethod.POST)
 	public ResponseEntity<String> updateAboutMeCommentary (@RequestBody CommentaryWrapper comment){
@@ -98,9 +102,11 @@ public class ScreeningController {
 		return new ResponseEntity<String>("Update introComment Completed", HttpStatus.OK); 
 	}
 	
-	/*
-	 * Store soft skill violation and Return softSkillViolationID
-	 * @param - array [violationTypeID] / String softSkillComment / Date violationTime"
+	/**
+	 * Create a SoftSkillViolation for each ViolationID in the RequestBody, and associates it with the given Screening
+	 * 
+	 * @param violationFlag - a ViolationFlagWrapper that contains an array of ViolationIds, comment, time of violation, and screeningId
+	 * @return An HttpStatus of OK signaling the successful entry of SoftSkillViolation objects.
 	 */
 	@RequestMapping(value = "/violation/flag", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> createSoftSkillViolationAndReturnSoftSkillViolationID (@RequestBody ViolationFlagWrapper violationFlag) {
@@ -114,9 +120,9 @@ public class ScreeningController {
 	}
 	
 	/**
-	 * Starts a screening by putting the screening into the database and returning 
+	 * Starts a screening by putting the screening into the database and returning the screeningId
 	 * 
-	 * 
+	 * @return A ResponseEntity containing a screeningId and an HttpStatus of OK
 	 */
 	@RequestMapping(value = "/screening/start", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> createScreening(
@@ -128,10 +134,10 @@ public class ScreeningController {
 	}
 	
 	/**
+	 * Persists general commentary to a Screening by its unique id.
 	 * 
-	 * Store the general comment in the Screening entity
-	 * @param comment
-	 * @return
+	 * @param comment - CommentaryWrapper that represent a comment and screeningId
+	 * @return A ResponseEntity containing a success message and an HttpStatus of OK
 	 */
 	@RequestMapping(value = "/screening/generalcomment", method = RequestMethod.POST)
 	public ResponseEntity<String> storeGeneralComment(@RequestBody CommentaryWrapper comment){
@@ -140,10 +146,10 @@ public class ScreeningController {
 	}
 	
 	/**
-	 * End a screening.
+	 * End a Screening and update the information by screeningId
 	 * 
-	 * @param simpleScreening
-	 * @return
+	 * @param simpleScreening - the status, softSkillsVerdict, softSkillsCommentary, endDateTime, compositeScore, and screeningId of a completed screening.
+	 * @return An HttpStatus of OK signalling the successful entry of a screening.
 	 */
 	@RequestMapping(value = "/screening/end", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> endScreening(@RequestBody SimpleScreening simpleScreening) {
@@ -160,8 +166,8 @@ public class ScreeningController {
 	/**
 	 * Get screenings based on the status provided.
 	 * 
-	 * @param status
-	 * @return
+	 * @param status - A string notifying whether the screening is pending or complete.
+	 * @return - List of SimpleScreening objects corresponding to status.
 	 */
 	@RequestMapping(value="/screening/getScreening/status/{status}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<SimpleScreening>> getScreenings(@PathVariable(value="status") String status){
