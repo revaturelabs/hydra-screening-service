@@ -78,7 +78,7 @@ values (3, 3, 2, 'Pajamas. Looked comfortable. Too bad he will not be comfortabl
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
 values (4, 4, 2, 'Not sure, but think he was not wearing pants. Awkward. Hard pass.', '2018-03-04');
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
-values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL,5, 5, 2, 'Said he does not own a suit or tie. Too bad, so sad.', '2018-03-05');
+values (5, 5, 2, 'Said he does not own a suit or tie. Too bad, so sad.', '2018-03-05');
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME)  
 values (6, 6, 3, 'He kept wandering off topic, and I think he might have been on Reddit.', '2018-03-06');
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
