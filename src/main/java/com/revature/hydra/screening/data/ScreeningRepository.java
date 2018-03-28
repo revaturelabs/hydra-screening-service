@@ -33,4 +33,6 @@ public interface ScreeningRepository extends JpaRepository<SimpleScreening, Inte
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	void updateScreeningInformationByScreeningId(String status, Boolean softSkillsVerdict, String softSkillCommentary, 
 			Date endDateTime, Double compositeScore, Integer screeningId);
+
+	List<SimpleScreening> findByStatus(String status);
 }

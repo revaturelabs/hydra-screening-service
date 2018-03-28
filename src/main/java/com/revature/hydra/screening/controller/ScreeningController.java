@@ -127,8 +127,11 @@ public class ScreeningController {
 		return new ResponseEntity<>(i.getScreeningId(),HttpStatus.OK);
 	}
 	
-	/*
+	/**
+	 * 
 	 * Store the general comment in the Screening entity
+	 * @param comment
+	 * @return
 	 */
 	@RequestMapping(value = "/screening/generalcomment", method = RequestMethod.POST)
 	public ResponseEntity<String> storeGeneralComment(@RequestBody CommentaryWrapper comment){
@@ -136,6 +139,12 @@ public class ScreeningController {
 		return new ResponseEntity<String>( "Update General Comment Success!",HttpStatus.OK);
 	}
 	
+	/**
+	 * End a screening.
+	 * 
+	 * @param simpleScreening
+	 * @return
+	 */
 	@RequestMapping(value = "/screening/end", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> endScreening(@RequestBody SimpleScreening simpleScreening) {
 		screeningRepository.updateScreeningInformationByScreeningId(
@@ -148,4 +157,14 @@ public class ScreeningController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	/**
+	 * Get screenings based on the status provided.
+	 * 
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping(value="/screening/getScreening/status/{status}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<SimpleScreening>> getScreenings(@PathVariable(value="status") String status){
+		return new ResponseEntity<List<SimpleScreening>>(screeningRepository.findByStatus(status), HttpStatus.OK);
+	}
 }
