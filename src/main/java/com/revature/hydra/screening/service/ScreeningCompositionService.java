@@ -50,7 +50,7 @@ public class ScreeningCompositionService {
 	 * @param softSkillViolationId
 	 */
 	public void deleteSoftSkillViolation(Integer softSkillViolationId) {
-		softSkillViolationRepository.deleteBySoftSkillViolationId(softSkillViolationId);
+		softSkillViolationRepository.delete(softSkillViolationId);
 	}
 	
 	/*
@@ -58,7 +58,7 @@ public class ScreeningCompositionService {
 	 * Update aboutMeCommentary by ScreeningId
 	 */
 	public void updateAboutMeCommentary(String aboutMeCommentary, Integer screeningId) {
-		screeningRepository.updateaboutMeCommentaryByScreeningId(aboutMeCommentary, screeningId);
+		screeningRepository.changeAboutMeCommentaryByScreeningId(aboutMeCommentary, screeningId);
 	}
 	
 	/*
@@ -66,7 +66,7 @@ public class ScreeningCompositionService {
 	 * Get SoftSkillViolations by ScreeningId
 	 */
 	public List<SoftSkillViolation> softSkillViolationsByScreeningId (Integer screeningId){
-		List<SoftSkillViolation> sv = softSkillViolationRepository.findSoftSkillViolationsByScreeningId(new SimpleScreening(screeningId));
+		List<SoftSkillViolation> sv = softSkillViolationRepository.findByScreeningId(new SimpleScreening(screeningId));
 		return sv;
 	}
 	
@@ -74,7 +74,7 @@ public class ScreeningCompositionService {
 	 * Get Violation Types
 	 */
 	public List<ViolationType> violationTypes (){
-		List<ViolationType> vt = violationRepository.findAllViolationTypes();
+		List<ViolationType> vt = violationRepository.findAll();
 		return  vt;
 	}
 	

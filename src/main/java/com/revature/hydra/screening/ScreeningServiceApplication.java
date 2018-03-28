@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableSwagger2
+//@EnableSwagger2
 @ComponentScan
 @EntityScan("com.revature.beans")
 public class ScreeningServiceApplication {

@@ -13,14 +13,9 @@ import com.revature.beans.ViolationType;
 
 @Repository
 public interface ViolationTypeRepository extends JpaRepository<ViolationType, Integer>{
-
-	@Query("select v from ViolationType v")
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	List<ViolationType> findAllViolationTypes();
 	
 	@Query("select v.violationTypeText from ViolationType v where v.violationTypeId =?1")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	String findViolationTypeByViolationId(Integer violationId);
+	String findViolationTypeTextByViolationTypeId(Integer violationId);
 	
-	public ViolationType findByViolationTypeId(Integer violationId);
 }

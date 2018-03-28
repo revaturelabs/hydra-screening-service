@@ -137,7 +137,7 @@ public class ScreeningController {
 	
 	@RequestMapping(value = "/screening/end", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> endScreening(@RequestBody SimpleScreening simpleScreening) {
-		screeningRepository.updateQuestionByScreeningId(
+		screeningRepository.updateScreeningInformationByScreeningId(
 				simpleScreening.getStatus(), 
 				simpleScreening.getSoftSkillsVerdict(), 
 				simpleScreening.getSoftSkillCommentary(),
