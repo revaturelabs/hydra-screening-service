@@ -1,5 +1,6 @@
 package com.revature.hydra.screening.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -54,10 +55,10 @@ public class ScreeningController {
 	 * @return
 	 */
 	@RequestMapping(value="/screening/violation/{screeningID}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<SoftSkillViolation>>  softSkillViolationsByScreeningID(@PathVariable(value="screeningID") Integer screeningID){
+	public ResponseEntity<List<HashMap<String, Object>>>  softSkillViolationsByScreeningID(@PathVariable(value="screeningID") Integer screeningID){
 		log.info("List of softSkillViolations by ScreeningID/" + screeningID);
-		List<SoftSkillViolation> ssv = scs.softSkillViolationsByScreeningId(screeningID);
-		return new ResponseEntity<List<SoftSkillViolation>>(ssv, HttpStatus.OK);
+		List<HashMap<String, Object>> ssv = scs.softSkillViolationsByScreeningId(screeningID);
+		return new ResponseEntity<List<HashMap<String, Object>>>(ssv, HttpStatus.OK);
 	}
 	
 	/**

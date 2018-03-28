@@ -1,5 +1,7 @@
 package com.revature.hydra.screening.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -65,9 +67,21 @@ public class ScreeningCompositionService {
 	 * @param
 	 * Get SoftSkillViolations by ScreeningId
 	 */
-	public List<SoftSkillViolation> softSkillViolationsByScreeningId (Integer screeningId){
+	public List<HashMap<String, Object>> softSkillViolationsByScreeningId (Integer screeningId){
 		List<SoftSkillViolation> sv = softSkillViolationRepository.findSoftSkillViolationsByScreeningId(new SimpleScreening(screeningId));
-		return sv;
+		List<HashMap<String, Object>> list = new ArrayList<>();
+		
+		for (SoftSkillViolation s : sv) {
+			HashMap<String, Object> map = new HashMap<>();
+			int violationId = s.getViolationId();
+			map.put("violationID", violationId);
+			map.put("softskillcomment", s.getComment());
+			ViolationType v = violationRepository.findOne(violationId);
+			map.put("violationType", v.getViolationTypeText());
+			
+			list.add(map);
+		}
+		return list;
 	}
 	
 	/*

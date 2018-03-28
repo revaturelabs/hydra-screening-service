@@ -42,6 +42,10 @@ public class SoftSkillViolation {
 	@Column(name="TIME")
 	private Date Time;
 	
+	public SoftSkillViolation() {
+		super();
+	}
+	
 	public SoftSkillViolation(Integer id, SimpleScreening screeningId, Integer violationId, String comment, Date time) {
 		super();
 		this.id = id;
@@ -59,10 +63,6 @@ public class SoftSkillViolation {
 		Time = time;
 	}
 
-	public SoftSkillViolation() {
-		super();
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -75,16 +75,24 @@ public class SoftSkillViolation {
 		return screeningId;
 	}
 
-	public void setScreening(SimpleScreening screeningId) {
+	public void setScreeningId(SimpleScreening screeningId) {
 		this.screeningId = screeningId;
 	}
 
-	public Integer getViolation() {
+	public Integer getViolationId() {
 		return violationId;
 	}
 
-	public void setViolation(Integer violationId) {
+	public void setViolationId(Integer violationId) {
 		this.violationId = violationId;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public Date getTime() {
