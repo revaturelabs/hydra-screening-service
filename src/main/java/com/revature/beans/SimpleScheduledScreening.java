@@ -2,23 +2,37 @@ package com.revature.beans;
 
 import java.util.Date;
 
-public class ScheduledScreening {
-	private Trainee trainee;
-	private Integer trainer;
-	private ScheduledStatus status;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Table(name = "SCHEDULED_SCREENING")
+@Entity
+public class SimpleScheduledScreening {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SCHEDULED_SCREENING_SEQUENCE")
+	@SequenceGenerator(name = "SCHEDULED_SCREENING_SEQUENCE", sequenceName = "SCHEDULED_SCREENING_SEQUENCE")
+	@Column(name = "SCHEDULED_SCREENING_ID")
 	private Integer scheduledScreeningId;
+	@Column
+	private Integer trainee;
+	@Column
+	private Integer trainer;
+	@Column
+	private ScheduledStatus status;
+	@Column
 	private Date scheduledDate;
 
-	public ScheduledScreening(Trainee trainee, Integer trainer, ScheduledStatus status, Date scheduledDate) {
+	public SimpleScheduledScreening() {
 		super();
-		this.trainee = trainee;
-		this.trainer = trainer;
-		this.status = status;
-		this.scheduledDate = scheduledDate;
 	}
 
-	public ScheduledScreening(Integer scheduledScreeningId, Trainee trainee, Integer trainer, ScheduledStatus status,
-			Date scheduledDate) {
+	public SimpleScheduledScreening(Integer scheduledScreeningId, Integer trainee, Integer trainer,
+			ScheduledStatus status, Date scheduledDate) {
 		super();
 		this.trainee = trainee;
 		this.trainer = trainer;
@@ -27,15 +41,19 @@ public class ScheduledScreening {
 		this.scheduledDate = scheduledDate;
 	}
 
-	public ScheduledScreening() {
+	public SimpleScheduledScreening(Integer trainee, Integer trainer, ScheduledStatus status, Date scheduledDate) {
 		super();
+		this.trainee = trainee;
+		this.trainer = trainer;
+		this.status = status;
+		this.scheduledDate = scheduledDate;
 	}
 
-	public Trainee getTrainee() {
+	public Integer getTrainee() {
 		return trainee;
 	}
 
-	public void setTrainee(Trainee trainee) {
+	public void setTrainee(Integer trainee) {
 		this.trainee = trainee;
 	}
 
@@ -72,12 +90,6 @@ public class ScheduledScreening {
 	}
 
 	@Override
-	public String toString() {
-		return "ScheduledScreening [trainee=" + trainee + ", trainer=" + trainer + ", status=" + status
-				+ ", scheduledScreeningId=" + scheduledScreeningId + ", scheduledDate=" + scheduledDate + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -97,7 +109,7 @@ public class ScheduledScreening {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ScheduledScreening other = (ScheduledScreening) obj;
+		SimpleScheduledScreening other = (SimpleScheduledScreening) obj;
 		if (scheduledDate == null) {
 			if (other.scheduledDate != null)
 				return false;
@@ -121,6 +133,12 @@ public class ScheduledScreening {
 		} else if (!trainer.equals(other.trainer))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "SimpleScheduledScreening [trainee=" + trainee + ", trainer=" + trainer + ", status=" + status
+				+ ", scheduledScreeningId=" + scheduledScreeningId + ", scheduledDate=" + scheduledDate + "]";
 	}
 
 }
