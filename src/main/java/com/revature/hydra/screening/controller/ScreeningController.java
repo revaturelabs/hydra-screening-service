@@ -3,7 +3,6 @@ package com.revature.hydra.screening.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,7 +39,6 @@ import com.revature.hydra.screening.wrapper.ViolationFlagWrapper;
 @CrossOrigin
 public class ScreeningController {
 	
-	private static final Logger log = Logger.getLogger(ScreeningController.class);
 	
 	@Autowired
 	private ScreeningRepository screeningRepository;
@@ -70,7 +68,6 @@ public class ScreeningController {
 	 */
 	@RequestMapping(value="/screening/violation/{screeningID}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<SoftSkillViolation>>  softSkillViolationsByScreeningID(@PathVariable(value="screeningID") Integer screeningID){
-		log.info("List of softSkillViolations by ScreeningID/" + screeningID);
 		List<SoftSkillViolation> ssv = scs.softSkillViolationsByScreeningId(screeningID);
 		return new ResponseEntity<List<SoftSkillViolation>>(ssv, HttpStatus.OK);
 	}
