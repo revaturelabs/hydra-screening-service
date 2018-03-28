@@ -84,4 +84,32 @@ values (6, 6, 3, 'He kept wandering off topic, and I think he might have been on
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
 values (7, 7, 3, 'Could not keep a thought straight.', '2018-03-07');
  
+--------------------------------------------------------
+--  DDL for Sequence SCHEDULED_SCREENING
+--------------------------------------------------------
+DROP SEQUENCE IF EXISTS SCHEDULED_SCREENING_SEQUENCE;
+CREATE SEQUENCE  IF NOT EXISTS  SCHEDULED_SCREENING_SEQUENCE  MINVALUE 5600  INCREMENT BY 1 START WITH 5600;
 
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5501, 'SCREENED', '9/20/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5502, 'SCREENED', '6/10/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5503, 'SCREENED', '2/14/2018');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5504, 'PENDING', '6/29/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5505, 'SCREENED', '9/1/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5506, 'PENDING', '10/18/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5507, 'PENDING', '3/1/2018');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5508, 'PENDING', '3/20/2018');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5509, 'SCREENED', '3/26/2018');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5510, 'PENDING', '7/23/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5511, 'SCREENED', '3/22/2018');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5512, 'SCREENED', '3/11/2018');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5513, 'PENDING', '6/2/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5514, 'SCREENED', '3/29/2018');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5515, 'PENDING', '11/22/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5516, 'PENDING', '9/6/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5517, 'PENDING', '2/6/2018');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5518, 'SCREENED', '3/22/2018');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5519, 'SCREENED', '7/3/2017');
+insert into SCHEDULED_SCREENING (trainee, status, scheduledDate) values (5520, 'SCREENED', '2/7/2018');
+
+
+COMMIT;
