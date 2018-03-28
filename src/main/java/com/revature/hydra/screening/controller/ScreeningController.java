@@ -1,24 +1,40 @@
 package com.revature.hydra.screening.controller;
 
 import java.util.Date;
+import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.beans.Screening;
+import com.revature.beans.SimpleScreening;
 import com.revature.beans.SimpleTrainee;
+import com.revature.beans.SoftSkillViolation;
 import com.revature.beans.ViolationType;
+import com.revature.hydra.screening.data.ScreeningRepository;
+import com.revature.hydra.screening.data.SoftSkillViolationRepository;
 import com.revature.hydra.screening.service.ScreeningCompositionService;
 
 @RestController
 @CrossOrigin
 public class ScreeningController {
+	
+	private static final Logger log = Logger.getLogger(ScreeningController.class);
+	
+	@Autowired
+	private ScreeningRepository screeningRepository;
+	
+	@Autowired
+	private SoftSkillViolationRepository softSkillViolationRepository;
 
 	private ScreeningCompositionService scs;
 
@@ -30,6 +46,65 @@ public class ScreeningController {
 	/*
 	 * Screening controller endpoints
 	 */
+	
+	/*
+	 * List of softSkillViolations by ScreeningID
+	 */
+	@RequestMapping(value="/screening/violation/{screeningID}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<SoftSkillViolation>>  softSkillViolationsByScreeningID(@PathVariable(value="screeningID") Integer screeningID){
+		log.info("List of softSkillViolations by ScreeningID/" + screeningID);
+		List<SoftSkillViolation> ssv = scs.softSkillViolationsByScreeningId(screeningID);
+		return new ResponseEntity<List<SoftSkillViolation>>(ssv, HttpStatus.OK);
+	}
+	
+	/*
+	 * List of Violation
+	 */
+	@RequestMapping(value="/violation/all", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ViolationType>>getViolationTypes(){
+		List<ViolationType> vios = scs.violationTypes();
+		return new ResponseEntity<List<ViolationType>>(vios, HttpStatus.OK);
+	}
+	
+	/*
+	 * Delete soft skill violation
+	 */
+	@RequestMapping(value="/violation/delete/{violationID}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> deleteViolation (@PathVariable(value="violationID") Integer violationID) {
+		scs.deleteViolation(violationID);
+		return new ResponseEntity<String>("Delete Completed", HttpStatus.OK);
+	}
+	
+	
+	/*
+	 * Update aboutMeCommentary by ScreeningID
+	 */
+	@RequestMapping(value="/screening/introcomment", method=RequestMethod.POST)
+	public ResponseEntity<String> updateAboutMeCommentary (@RequestParam String introComment, 
+			@RequestParam Integer screeningId){
+		log.info("AboutMeCommentary: " + introComment);
+		log.info("screeningId: "+ screeningId);
+		scs.updateAboutMeCommentary(introComment, screeningId);
+		return new ResponseEntity<String>("Update introComment Completed", HttpStatus.OK);
+	}
+	
+	/*
+	 * Store soft skill violation and Return softSkillViolationID
+	 * @param - array [violationTypeID] / String softSkillComment / Date violationTime"
+	 */
+	@RequestMapping(value = "/violation/flag", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> createSoftSkillViolationAndReturnSoftSkillViolationID (@RequestParam Integer[] violationIds, 
+																					   @RequestParam String comment, 
+																					   @RequestParam Date violationTime,
+																					   @RequestParam Integer screeningId) {
+		SimpleScreening ss = screeningRepository.findOne(screeningId);
+		for(Integer violationId : violationIds) {
+			SoftSkillViolation ssv = new SoftSkillViolation(ss, violationId, comment, violationTime);
+			softSkillViolationRepository.save(ssv);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 	/**
 	 * Test to get one trainee
@@ -48,32 +123,45 @@ public class ScreeningController {
 	 * 
 	 * 
 	 */
-	@RequestMapping(value = "/start", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> createScreeningAndReturnQuestionsFromTags(
-			@RequestParam(name="tagID") Integer[] tagId,
+	@RequestMapping(value = "/screening/start", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> createScreening(
 			@RequestParam(name="traineeId") Integer traineeId,
 			@RequestParam(name="beginTime") Date date,
-			@RequestParam(name="violationTypeId") ViolationType[] violationTypeId,
-			@RequestParam(name="aboutMeComment") String aboutMeComment){
+			@RequestParam(name="trainerId") Integer trainerId,
+			@RequestParam(name="skillTypeId") Integer skillTypeId){
 		
-		return new ResponseEntity<>(new Integer(1),HttpStatus.OK);
+		SimpleScreening screening = new SimpleScreening(trainerId, traineeId,
+				skillTypeId, 0.0, "", "",
+				"", date, null, false,
+				"pending");
+		screeningRepository.save(screening);
+		return new ResponseEntity<>(screening.getScreeningId(),HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/generalcomment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void storeGeneralComment(@RequestParam(name="screeningId") Integer screeningId){
-		
+	/*
+	 * Store the general comment in the Screening entity
+	 */
+	@RequestMapping(value = "/screening/generalcomment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> storeGeneralComment(@RequestParam(name="screeningId") Integer screeningId, 
+			@RequestParam(name="comment") String comment){
+		log.debug("screeningId : "+ screeningId);
+		log.debug("comment : " + comment);
+		scs.updateGeneralCommentary(comment, screeningId);
+		return new ResponseEntity<String>( "Update General Comment Success!",HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/end", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void endScreening(
-			@RequestParam(name="status") Boolean status,
+	@RequestMapping(value = "/screening/end", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> endScreening(
+			@RequestParam(name="status") String status,
 			@RequestParam(name="softSkillsVerdict") Boolean softSkillsVerdict,
-			@RequestParam(name="violationTypeId") Integer [] violationTypeIds,
 			@RequestParam(name="softSkillComment") String softSkillComment,
 			@RequestParam(name="endTime") Date endTime,
 			@RequestParam(name="screeningId") Integer screeningId,
-			@RequestParam(name = "compositeScore") Integer compositeScore
+			@RequestParam(name = "compositeScore") Double compositeScore
 			) {
-		
+		screeningRepository.updateQuestionByScreeningId(status, softSkillsVerdict, softSkillComment, endTime, compositeScore, screeningId);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	
 }

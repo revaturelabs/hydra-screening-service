@@ -1,13 +1,12 @@
-/*package com.revature.beans;
+package com.revature.beans;
 
 import java.util.Date;
 
 public class Screening {
 	private Integer screeningId;
-	private Trainer trainer;
-	private Trainee trainee;
-	private Screener screener;
-	private Track track;
+	private SimpleTrainer trainer;
+	private SimpleTrainee trainee;
+	private SkillType skillType;
 
 	private Double compositeScore;
 	private String aboutMeCommentary;
@@ -24,15 +23,13 @@ public class Screening {
 		super();
 	}
 
-	public Screening(Integer screeningId, Trainer trainer, Trainee trainee, Screener screener, Track track, Double compositeScore,
+	public Screening(SimpleTrainer trainer, SimpleTrainee trainee, SkillType skillType, Double compositeScore,
 			String aboutMeCommentary, String generalCommentary, String softSkillCommentary, Date startDateTime,
 			Date endDateTime, Boolean softSkillsVerdict, String status) {
 		super();
-		this.screeningId = screeningId;
 		this.trainer = trainer;
 		this.trainee = trainee;
-		this.screener = screener;
-		this.track = track;
+		this.skillType = skillType;
 		this.compositeScore = compositeScore;
 		this.aboutMeCommentary = aboutMeCommentary;
 		this.generalCommentary = generalCommentary;
@@ -43,18 +40,6 @@ public class Screening {
 		this.status = status;
 	}
 
-	public Screening(SimpleScreening simpleScreening) {
-		super();
-		this.compositeScore = simpleScreening.getCompositeScore();
-		this.aboutMeCommentary = simpleScreening.getAboutMeCommentary();
-		this.generalCommentary = simpleScreening.getGeneralCommentary();
-		this.softSkillCommentary = simpleScreening.getSoftSkillCommentary();
-		this.startDateTime = simpleScreening.getStartDateTime();
-		this.endDateTime = simpleScreening.getEndDateTime();
-		this.softSkillsVerdict = simpleScreening.getSoftSkillsVerdict();
-		this.status = simpleScreening.getStatus();
-	}
-
 	public Integer getScreeningId() {
 		return screeningId;
 	}
@@ -63,36 +48,28 @@ public class Screening {
 		this.screeningId = screeningId;
 	}
 
-	public Trainer getTrainer() {
+	public SimpleTrainer getTrainer() {
 		return trainer;
 	}
 
-	public void setTrainer(Trainer trainer) {
+	public void setTrainer(SimpleTrainer trainer) {
 		this.trainer = trainer;
 	}
 
-	public Trainee getTrainee() {
+	public SimpleTrainee getTrainee() {
 		return trainee;
 	}
 
-	public void setTrainee(Trainee trainee) {
+	public void setTrainee(SimpleTrainee trainee) {
 		this.trainee = trainee;
 	}
 
-	public Screener getScreener() {
-		return screener;
+	public SkillType getSkillType() {
+		return skillType;
 	}
 
-	public void setScreener(Screener screener) {
-		this.screener = screener;
-	}
-
-	public Track getTrack() {
-		return track;
-	}
-
-	public void setTrack(Track track) {
-		this.track = track;
+	public void setSkillType(SkillType skillType) {
+		this.skillType = skillType;
 	}
 
 	public Double getCompositeScore() {
@@ -159,99 +136,4 @@ public class Screening {
 		this.status = status;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((aboutMeCommentary == null) ? 0 : aboutMeCommentary.hashCode());
-		result = prime * result + ((compositeScore == null) ? 0 : compositeScore.hashCode());
-		result = prime * result + ((endDateTime == null) ? 0 : endDateTime.hashCode());
-		result = prime * result + ((generalCommentary == null) ? 0 : generalCommentary.hashCode());
-		result = prime * result + ((screeningId == null) ? 0 : screeningId.hashCode());
-		result = prime * result + ((softSkillCommentary == null) ? 0 : softSkillCommentary.hashCode());
-		result = prime * result + ((softSkillsVerdict == null) ? 0 : softSkillsVerdict.hashCode());
-		result = prime * result + ((startDateTime == null) ? 0 : startDateTime.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((trainee == null) ? 0 : trainee.hashCode());
-		result = prime * result + ((trainer == null) ? 0 : trainer.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Screening other = (Screening) obj;
-		if (aboutMeCommentary == null) {
-			if (other.aboutMeCommentary != null)
-				return false;
-		} else if (!aboutMeCommentary.equals(other.aboutMeCommentary))
-			return false;
-		if (compositeScore == null) {
-			if (other.compositeScore != null)
-				return false;
-		} else if (!compositeScore.equals(other.compositeScore))
-			return false;
-		if (endDateTime == null) {
-			if (other.endDateTime != null)
-				return false;
-		} else if (!endDateTime.equals(other.endDateTime))
-			return false;
-		if (generalCommentary == null) {
-			if (other.generalCommentary != null)
-				return false;
-		} else if (!generalCommentary.equals(other.generalCommentary))
-			return false;
-		if (screeningId == null) {
-			if (other.screeningId != null)
-				return false;
-		} else if (!screeningId.equals(other.screeningId))
-			return false;
-		if (softSkillCommentary == null) {
-			if (other.softSkillCommentary != null)
-				return false;
-		} else if (!softSkillCommentary.equals(other.softSkillCommentary))
-			return false;
-		if (softSkillsVerdict == null) {
-			if (other.softSkillsVerdict != null)
-				return false;
-		} else if (!softSkillsVerdict.equals(other.softSkillsVerdict))
-			return false;
-		if (startDateTime == null) {
-			if (other.startDateTime != null)
-				return false;
-		} else if (!startDateTime.equals(other.startDateTime))
-			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
-		if (trainee == null) {
-			if (other.trainee != null)
-				return false;
-		} else if (!trainee.equals(other.trainee))
-			return false;
-		if (trainer == null) {
-			if (other.trainer != null)
-				return false;
-		} else if (!trainer.equals(other.trainer))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Screening [screeningId=" + screeningId + ", trainer=" + trainer + ", trainee=" + trainee
-				+ ", compositeScore=" + compositeScore + ", aboutMeCommentary=" + aboutMeCommentary
-				+ ", generalCommentary=" + generalCommentary + ", softSkillCommentary=" + softSkillCommentary
-				+ ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", softSkillsVerdict="
-				+ softSkillsVerdict + ", status=" + status + "]";
-	}
-
 }
-*/

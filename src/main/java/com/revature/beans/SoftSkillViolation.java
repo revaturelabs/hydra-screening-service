@@ -22,28 +22,40 @@ import org.hibernate.annotations.CreationTimestamp;
 public class SoftSkillViolation {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="softSkillViolationSequence")
-	@SequenceGenerator(allocationSize=1,name="softSkillViolationSequence",sequenceName="SOFT_SKILL_VIOLATION_S1")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="SOFT_SKILL_VIOLATION_SEQUENCE")
+	@SequenceGenerator(allocationSize=1,name="SOFT_SKILL_VIOLATION_SEQUENCE",sequenceName="SOFT_SKILL_VIOLATION_SEQUENCE")
 	@Column(name="SOFT_SKILL_VIOLATION_ID")
 	private int id;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="SCREENING_ID")
-	private SimpleScreening screening;
+	private SimpleScreening screeningId;
 	
-	@Column(name="VIOLATION")
-	private String violation;
+	@Column(name="VIOLATION_TYPE_ID")
+	private Integer violationId;
+	
+	@Column(name="SOFT_SKILL_VIOLATION_COMMENT")
+	private String comment;
 	
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="TIME")
 	private Date Time;
 	
-	public SoftSkillViolation(int id, SimpleScreening screening, String violation, Date time) {
+	public SoftSkillViolation(int id, SimpleScreening screeningId, Integer violationId, String comment, Date time) {
 		super();
 		this.id = id;
-		this.screening = screening;
-		this.violation = violation;
+		this.screeningId = screeningId;
+		this.violationId = violationId;
+		this.comment = comment;
+		Time = time;
+	}
+	
+	public SoftSkillViolation(SimpleScreening screeningId, Integer violationId, String comment, Date time) {
+		super();
+		this.screeningId = screeningId;
+		this.violationId = violationId;
+		this.comment = comment;
 		Time = time;
 	}
 
@@ -59,20 +71,20 @@ public class SoftSkillViolation {
 		this.id = id;
 	}
 
-	public SimpleScreening getScreening() {
-		return screening;
+	public SimpleScreening getScreeningId() {
+		return screeningId;
 	}
 
-	public void setScreening(SimpleScreening screening) {
-		this.screening = screening;
+	public void setScreening(SimpleScreening screeningId) {
+		this.screeningId = screeningId;
 	}
 
-	public String getViolation() {
-		return violation;
+	public Integer getViolation() {
+		return violationId;
 	}
 
-	public void setViolation(String violation) {
-		this.violation = violation;
+	public void setViolation(Integer violationId) {
+		this.violationId = violationId;
 	}
 
 	public Date getTime() {
