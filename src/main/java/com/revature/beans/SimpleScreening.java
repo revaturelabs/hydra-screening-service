@@ -47,7 +47,8 @@ public class SimpleScreening {
 	@Column(name = "STATUS")
 	private String status;
 	
-	@Column(name = "SCHEDULED_SCREENING")
+	@OneToOne
+	@JoinColumn(name="scheduledScreeningId")
 	private SimpleScheduledScreening simpleScheduledScreening;
 
 	public SimpleScreening() {
