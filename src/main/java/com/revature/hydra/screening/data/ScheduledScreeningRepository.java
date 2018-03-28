@@ -12,11 +12,11 @@ import com.revature.beans.SimpleScheduledScreening;
 
 public interface ScheduledScreeningRepository extends JpaRepository<SimpleScheduledScreening, Integer> {
 
-	List<SimpleScheduledScreening> findByStatus(ScheduledStatus pending);
+	List<SimpleScheduledScreening> findByStatus(String string);
 
 	@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query("update SimpleScheduledScreening s set s.status = ?1 where s.scheduledScreeningId = ?2")
-	void updateStatus(ScheduledStatus screened, Integer scheduledScreeningId);
+	void updateStatus(String screened, Integer scheduledScreeningId);
 
 }

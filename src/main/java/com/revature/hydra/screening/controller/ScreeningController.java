@@ -171,7 +171,7 @@ public class ScreeningController {
 		
 		Integer scheduledScreeningId = ss.getSimpleScheduledScreening().getScheduledScreeningId();
 		
-		scheduledScreeningRepository.updateStatus(ScheduledStatus.SCREENED, scheduledScreeningId);
+		scheduledScreeningRepository.updateStatus("SCREENED", scheduledScreeningId);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
@@ -197,7 +197,7 @@ public class ScreeningController {
 	@RequestMapping(value="/screening/scheduledScreenings", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ScheduledScreening>> getAllScheduledScreenings(){
 		
-		List<SimpleScheduledScreening> simpleScheduledScreenings = scheduledScreeningRepository.findByStatus(ScheduledStatus.PENDING);
+		List<SimpleScheduledScreening> simpleScheduledScreenings = scheduledScreeningRepository.findByStatus("PENDING");
 
 		List<ScheduledScreening> scheduledScreenings=new ArrayList<>();
 		

@@ -23,7 +23,7 @@ public class SimpleScheduledScreening {
 	@Column(name = "TRAINER")
 	private Integer trainer;
 	@Column(name = "STATUS")
-	private ScheduledStatus status;
+	private String status;
 	@Column(name = "SCHEDULED_DATE")
 	private Date scheduledDate;
 
@@ -32,7 +32,7 @@ public class SimpleScheduledScreening {
 	}
 
 	public SimpleScheduledScreening(Integer scheduledScreeningId, Integer trainee, Integer trainer,
-			ScheduledStatus status, Date scheduledDate) {
+			String status, Date scheduledDate) {
 		super();
 		this.trainee = trainee;
 		this.trainer = trainer;
@@ -41,7 +41,7 @@ public class SimpleScheduledScreening {
 		this.scheduledDate = scheduledDate;
 	}
 
-	public SimpleScheduledScreening(Integer trainee, Integer trainer, ScheduledStatus status, Date scheduledDate) {
+	public SimpleScheduledScreening(Integer trainee, Integer trainer, String status, Date scheduledDate) {
 		super();
 		this.trainee = trainee;
 		this.trainer = trainer;
@@ -65,11 +65,11 @@ public class SimpleScheduledScreening {
 		this.trainer = trainer;
 	}
 
-	public ScheduledStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(ScheduledStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
