@@ -36,6 +36,6 @@ public interface ScreeningRepository extends JpaRepository<SimpleScreening, Inte
 	@Query("update SimpleScreening s set s.status = ?1, s.softSkillsVerdict = ?2, s.softSkillCommentary = ?3,"+
 			"s.endDateTime = ?4, s.compositeScore = ?5 where s.screeningId = ?6")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	void updateQuestionByScreeningId(String status, boolean softSkillsVerdict, String softSkillCommentary, 
+	void updateQuestionByScreeningId(String status, Boolean softSkillsVerdict, String softSkillCommentary, 
 			Date endDateTime, Double compositeScore, Integer screeningId);
 }
