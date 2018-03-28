@@ -1,5 +1,6 @@
 package com.revature.hydra.screening.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -14,9 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.beans.ScheduledScreening;
+import com.revature.beans.ScheduledStatus;
+import com.revature.beans.SimpleScheduledScreening;
 import com.revature.beans.SimpleScreening;
+import com.revature.beans.SimpleTrainee;
 import com.revature.beans.SoftSkillViolation;
+import com.revature.beans.Trainee;
 import com.revature.beans.ViolationType;
+import com.revature.hydra.screening.data.ScheduledScreeningRepository;
 import com.revature.hydra.screening.data.ScreeningRepository;
 import com.revature.hydra.screening.data.SoftSkillViolationRepository;
 import com.revature.hydra.screening.service.ScreeningCompositionService;
@@ -41,6 +48,9 @@ public class ScreeningController {
 	@Autowired
 	private SoftSkillViolationRepository softSkillViolationRepository;
 
+	@Autowired
+	private ScheduledScreeningRepository scheduledScreeningRepository;
+	
 	private ScreeningCompositionService scs;
 
 	@Autowired
@@ -125,8 +135,8 @@ public class ScreeningController {
 	 * @return A ResponseEntity containing a screeningId and an HttpStatus of OK
 	 */
 	@RequestMapping(value = "/screening/start", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> createScreening(
-			@RequestBody SimpleScreening simpleScreening){
+	public ResponseEntity<Integer> createScreening(@RequestBody SimpleScreening simpleScreening){
+
 		
 		SimpleScreening screening = simpleScreening;
 		SimpleScreening i = screeningRepository.save(screening);
@@ -160,6 +170,12 @@ public class ScreeningController {
 				simpleScreening.getEndDateTime(),
 				simpleScreening.getCompositeScore(),
 				simpleScreening.getScreeningId());
+		SimpleScreening ss = screeningRepository.getOne(simpleScreening.getScreeningId());
+		
+		Integer scheduledScreeningId = ss.getSimpleScheduledScreening().getScheduledScreeningId();
+		
+		scheduledScreeningRepository.updateStatus(ScheduledStatus.SCREENED, scheduledScreeningId);
+		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
@@ -173,4 +189,35 @@ public class ScreeningController {
 	public ResponseEntity<List<SimpleScreening>> getScreenings(@PathVariable(value="status") String status){
 		return new ResponseEntity<List<SimpleScreening>>(screeningRepository.findByStatus(status), HttpStatus.OK);
 	}
+	
+
+	/**
+	 * Get screenings based on the status provided.
+	 * 
+	 * @param status - A string notifying whether the screening is pending or complete.
+	 * @return - List of SimpleScreening objects corresponding to status.
+	 */
+	@RequestMapping(value="/screening/scheduledScreenings", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ScheduledScreening>> getAllScheduledScreenings(){
+		
+		List<SimpleScheduledScreening> simpleScheduledScreenings = scheduledScreeningRepository.findByStatus(ScheduledStatus.PENDING);
+
+		List<ScheduledScreening> scheduledScreenings=new ArrayList<>();
+		
+		for(SimpleScheduledScreening screening : simpleScheduledScreenings) {
+			Integer traineeId = screening.getTrainee();
+			SimpleTrainee simpleTrainee = scs.getOneTrainee(traineeId);
+			
+			scheduledScreenings.add(new ScheduledScreening(
+					screening.getScheduledScreeningId(), 
+					new Trainee(simpleTrainee),
+					0, 
+					ScheduledStatus.PENDING, 
+					screening.getScheduledDate()));
+		}
+		
+		return new ResponseEntity<>(scheduledScreenings, HttpStatus.OK);
+	}
+	
+	
 }

@@ -39,7 +39,6 @@ public class ScreeningCompositionService {
 	 */
 	public SimpleTrainee getOneTrainee(Integer id) {
 		SimpleTrainee st = scms.sendSingleTraineeRequest(id);
-
 		return st;
 	}
 	

@@ -2,26 +2,83 @@ package com.revature.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * The type Simple Trainee.
  */
+@Entity
+@Table(name = "CALIBER_TRAINEE")
+@Cacheable
 public class SimpleTrainee implements Serializable {
 	private static final long serialVersionUID = -5478972218765858144L;
 
+	@Id
+	@Column(name = "TRAINEE_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRAINEE_ID_SEQUENCE")
+	@SequenceGenerator(name = "TRAINEE_ID_SEQUENCE", sequenceName = "TRAINEE_ID_SEQUENCE")
 	private Integer traineeId;
+
+	@Column(name = "RESOURCE_ID")
 	private String resourceId;
+
+	@NotEmpty
+	@Column(name = "TRAINEE_NAME")
 	private String name;
+
+	@NotEmpty
+	@Email
+	@Column(name = "TRAINEE_EMAIL", nullable = false)
 	private String email;
+
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TRAINING_STATUS")
 	private TrainingStatus trainingStatus;
+
+	@NotNull
+	@Column(name = "BATCH_ID")
 	private Integer batchId;
+
+	@Column(name = "PHONE_NUMBER")
 	private String phoneNumber;
+
+	@Column(name = "SKYPE_ID")
 	private String skypeId;
+
+	@Column(name = "PROFILE_URL")
 	private String profileUrl;
+
+	// new columns
+	@Column(name = "RECRUITER_NAME")
 	private String recruiterName;
+
+	@Column(name = "COLLEGE")
 	private String college;
+
+	@Column(name = "DEGREE")
 	private String degree;
+
+	@Column(name = "MAJOR")
 	private String major;
+
+	@Column(name = "TECH_SCREENER_NAME")
 	private String techScreenerName;
+
+	@Column(name = "REVPRO_PROJECT_COMPLETION")
 	private String projectCompletion;
 
 	public SimpleTrainee() {
@@ -47,6 +104,24 @@ public class SimpleTrainee implements Serializable {
 		this.major = major;
 		this.techScreenerName = techScreenerName;
 		this.projectCompletion = projectCompletion;
+	}
+
+	public SimpleTrainee(Trainee trainee) {
+		super();
+		this.traineeId = trainee.getTraineeId();
+		this.resourceId = trainee.getResourceId();
+		this.name = trainee.getName();
+		this.email = trainee.getEmail();
+		this.trainingStatus = trainee.getTrainingStatus();
+		this.batchId = trainee.getBatch() != null ? trainee.getBatch().getBatchId() : null;
+		this.phoneNumber = trainee.getPhoneNumber();
+		this.skypeId = trainee.getSkypeId();
+		this.profileUrl = trainee.getProfileUrl();
+		this.college = trainee.getCollege();
+		this.degree = trainee.getDegree();
+		this.major = trainee.getMajor();
+		this.techScreenerName = trainee.getTechScreenerName();
+		this.projectCompletion = trainee.getProjectCompletion();
 	}
 
 	public Integer getTraineeId() {

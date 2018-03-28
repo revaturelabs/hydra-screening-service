@@ -1,45 +1,34 @@
 package com.revature.beans;
 
-public class SkillType {
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public enum SkillType implements Serializable{
+	@JsonProperty("J2EE")
+	J2EE("J2EE"),
+	@JsonProperty(".NET")
+	NET(".NET"),
+	@JsonProperty("SDET")
+	SDET("SDET"),
+	@JsonProperty("BPM")
+	BPM("BPM"),
+	@JsonProperty("Other")
+	OTHER("Other");
 	
-	private Integer skillTypeID;
-	
-	private String skillTypeName;
-	
-	private Boolean isActive;
+	private String type;
 
-	public SkillType() {
-		super();
+	private SkillType(String type) {
+		this.type = type;
 	}
 
-	public SkillType(String skillTypeName, Boolean isActive) {
-		super();
-		this.skillTypeName = skillTypeName;
-		this.isActive = isActive;
+	public String getType() {
+		return type;
 	}
 
-	public Integer getSkillTypeID() {
-		return skillTypeID;
+	@Override
+	public String toString() {
+		return type;
 	}
 
-	public void setSkillTypeID(Integer skillTypeID) {
-		this.skillTypeID = skillTypeID;
-	}
-
-	public String getSkillTypeName() {
-		return skillTypeName;
-	}
-
-	public void setSkillTypeName(String skillTypeName) {
-		this.skillTypeName = skillTypeName;
-	}
-
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-	
 }

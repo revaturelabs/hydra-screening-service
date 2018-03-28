@@ -46,6 +46,9 @@ public class SimpleScreening {
 
 	@Column(name = "STATUS")
 	private String status;
+	
+	@Column(name = "SCHEDULED_SCREENING")
+	private SimpleScheduledScreening simpleScheduledScreening;
 
 	public SimpleScreening() {
 		super();
@@ -109,6 +112,13 @@ public class SimpleScreening {
 		this.status = status;
 	}
 
+	public SimpleScheduledScreening getSimpleScheduledScreening() {
+		return simpleScheduledScreening;
+	}
+
+	public void setSimpleScheduledScreening(SimpleScheduledScreening simpleScheduledScreening) {
+		this.simpleScheduledScreening = simpleScheduledScreening;
+	}
 	public void setScreeningId(Integer screeningId) {
 		this.screeningId = screeningId;
 	}
