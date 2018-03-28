@@ -8,15 +8,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.revature.beans.SimpleScreening;
 import com.revature.hydra.screening.data.ScreeningRepository;
+import com.revature.hydra.test.util.TestContext;
+import com.revature.hydra.test.util.WebAppContext;
 
 import org.junit.Assert;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestContext.class, WebAppContext.class })
 @DataJpaTest
 @WebAppConfiguration
 public class ScreeningRepositoryTests {
