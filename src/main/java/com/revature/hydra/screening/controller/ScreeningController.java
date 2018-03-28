@@ -1,5 +1,6 @@
 package com.revature.hydra.screening.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -77,7 +78,7 @@ public class ScreeningController {
 	 * @param violationID
 	 * @return
 	 */
-	@RequestMapping(value="/violation/delete/{softSkillViolationID}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/violation/delete/{softSkillViolationID}", method= RequestMethod.GET)
 	public ResponseEntity<String> deleteSoftSkillViolation (@PathVariable(value="softSkillViolationID") Integer softSkillViolationID) {
 		scs.deleteSoftSkillViolation(softSkillViolationID);
 		return new ResponseEntity<String>("Delete Completed", HttpStatus.OK);
@@ -129,7 +130,7 @@ public class ScreeningController {
 	/*
 	 * Store the general comment in the Screening entity
 	 */
-	@RequestMapping(value = "/screening/generalcomment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/screening/generalcomment", method = RequestMethod.POST)
 	public ResponseEntity<String> storeGeneralComment(@RequestBody CommentaryWrapper comment){
 		scs.updateGeneralCommentary(comment.comment, comment.screeningId);
 		return new ResponseEntity<String>( "Update General Comment Success!",HttpStatus.OK);
