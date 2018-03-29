@@ -53,13 +53,13 @@ DROP SEQUENCE IF EXISTS VIOLATION_SEQUENCE;
 CREATE SEQUENCE  IF NOT EXISTS  VIOLATION_SEQUENCE  MINVALUE 5600  INCREMENT BY 1 START WITH 5600;
 
 Insert into VIOLATION_TYPE (VIOLATION_ID, VIOLATION, DESCRIPTION) 
-values (1, 'using bad words', 'the participant used F words, B words, and/or S words');
+values (1, 'Profanity', 'Expletives were used.');
 
 Insert into VIOLATION_TYPE (VIOLATION_ID, VIOLATION, DESCRIPTION) 
-values (2, 'bad dress', 'no tie, no suit, no job');
+values (2, 'Attire', 'Attire was not appropriate.');
 
 Insert into VIOLATION_TYPE (VIOLATION_ID, VIOLATION, DESCRIPTION) 
-values (3, 'not focused', 'Focused not on the question, the participant was.');
+values (3, 'Unfocused', 'Focus was not fully on the screening.');
 
 COMMIT;
 
@@ -70,19 +70,19 @@ DROP SEQUENCE IF EXISTS SOFT_SKILL_VIOLATION_SEQUENCE;
 CREATE SEQUENCE  IF NOT EXISTS  SOFT_SKILL_VIOLATION_SEQUENCE  MINVALUE 5600  INCREMENT BY 1 START WITH 5600;
 
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
-values (1, 1, 1, 'After failing a question, candidate swore not unlike a sailor.', '2018-03-01');
+values (1, 1, 1, 'After failing a question, candidate started swearing.', '2018-03-01');
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME)  
-values (2, 2, 1, 'Never before have I heard such a vile stream of expletives.', '2018-03-02');
+values (2, 2, 1, 'Swore when yelling out to someone else behind him.', '2018-03-02');
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
-values (3, 3, 2, 'Pajamas. Looked comfortable. Too bad he will not be comfortable at a new job.', '2018-03-03');
+values (3, 3, 2, 'Was wearing pajamas', '2018-03-03');
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
-values (4, 4, 2, 'Not sure, but think he was not wearing pants. Awkward. Hard pass.', '2018-03-04');
+values (4, 4, 2, 'Wearing a graphic t-shirt.', '2018-03-04');
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
-values (5, 5, 2, 'Said he does not own a suit or tie. Too bad, so sad.', '2018-03-05');
+values (5, 5, 3, 'Had many people in the same room. Was drinking.', '2018-03-05');
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME)  
-values (6, 6, 3, 'He kept wandering off topic, and I think he might have been on Reddit.', '2018-03-06');
+values (6, 6, 3, 'He kept wandering off topic, was browsing a site.', '2018-03-06');
 Insert into SOFT_SKILL_VIOLATION (SOFT_SKILL_VIOLATION_ID, SCREENING_ID, VIOLATION_TYPE_ID, SOFT_SKILL_VIOLATION_COMMENT, TIME) 
-values (7, 7, 3, 'Could not keep a thought straight.', '2018-03-07');
+values (7, 7, 3, 'Extremely distracted, was texting.', '2018-03-07');
  
 --------------------------------------------------------
 --  DDL for Sequence SCHEDULED_SCREENING
@@ -90,25 +90,25 @@ values (7, 7, 3, 'Could not keep a thought straight.', '2018-03-07');
 DROP SEQUENCE IF EXISTS SCHEDULED_SCREENING_SEQUENCE;
 CREATE SEQUENCE  IF NOT EXISTS  SCHEDULED_SCREENING_SEQUENCE  MINVALUE 1  INCREMENT BY 1 START WITH 5600;
 
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 51, 5501, 'SCREENED', (SYSDATE+13));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 54, 5502, 'SCREENED', (SYSDATE+17));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 51, 5503, 'SCREENED', (SYSDATE+2));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 53, 5504, 'PENDING', (SYSDATE+6));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 52, 5505, 'SCREENED', (SYSDATE+35));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 51, 5506, 'PENDING', (SYSDATE+6));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 52, 5507, 'PENDING', (SYSDATE+1));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 54, 5508, 'PENDING', (SYSDATE+13));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 53, 5509, 'SCREENED', (SYSDATE+4));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 53, 25510, 'PENDING', (SYSDATE+9));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 52, 5511, 'SCREENED', (SYSDATE+12));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 51, 5512, 'SCREENED', (SYSDATE+11));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 52, 5513, 'PENDING', (SYSDATE+9));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 53, 5515, 'PENDING', (SYSDATE+8));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 51, 5516, 'PENDING', (SYSDATE+2));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 54, 5517, 'PENDING', (SYSDATE+19));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 53, 5518, 'SCREENED', (SYSDATE+24));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 51, 5519, 'SCREENED', (SYSDATE+20));
-insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 51, 5520, 'SCREENED', (SYSDATE+1));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 1, 5501, 'SCREENED', (SYSDATE+13));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 4, 5502, 'SCREENED', (SYSDATE+17));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 1, 5503, 'SCREENED', (SYSDATE+2));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 3, 5504, 'PENDING', (SYSDATE+6));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 2, 5505, 'SCREENED', (SYSDATE+35));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 1, 5506, 'PENDING', (SYSDATE+6));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 2, 5507, 'PENDING', (SYSDATE+1));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 8, 5508, 'PENDING', (SYSDATE+13));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 3, 5509, 'SCREENED', (SYSDATE+4));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 7, 5510, 'PENDING', (SYSDATE+9));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 5, 5511, 'SCREENED', (SYSDATE+12));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 1, 5512, 'SCREENED', (SYSDATE+11));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 4, 5513, 'PENDING', (SYSDATE+9));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 3, 5515, 'PENDING', (SYSDATE+8));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 6, 5516, 'PENDING', (SYSDATE+2));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 4, 5517, 'PENDING', (SYSDATE+19));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 3, 5518, 'SCREENED', (SYSDATE+24));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 1, 5519, 'SCREENED', (SYSDATE+20));
+insert into SCHEDULED_SCREENING (scheduled_screening_id, skill_type, trainee, status, scheduled_date) values (SCHEDULED_SCREENING_SEQUENCE.NEXTVAL, 5, 5520, 'SCREENED', (SYSDATE+1));
 
 
 COMMIT;
