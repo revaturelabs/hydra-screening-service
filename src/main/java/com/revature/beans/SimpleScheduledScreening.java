@@ -24,11 +24,34 @@ public class SimpleScheduledScreening {
 	private Integer trainer;
 	@Column(name = "STATUS")
 	private String status;
+	@Column(name="SKILL_TYPE")
+	private Integer skillTypeId;
 	@Column(name = "SCHEDULED_DATE")
 	private Date scheduledDate;
 
 	public SimpleScheduledScreening() {
 		super();
+	}
+
+	public SimpleScheduledScreening(Integer trainee, Integer trainer, String status, Integer skillTypeId,
+			Date scheduledDate) {
+		super();
+		this.trainee = trainee;
+		this.trainer = trainer;
+		this.status = status;
+		this.skillTypeId = skillTypeId;
+		this.scheduledDate = scheduledDate;
+	}
+
+	public SimpleScheduledScreening(Integer scheduledScreeningId, Integer trainee, Integer trainer, String status,
+			Integer skillTypeId, Date scheduledDate) {
+		super();
+		this.scheduledScreeningId = scheduledScreeningId;
+		this.trainee = trainee;
+		this.trainer = trainer;
+		this.status = status;
+		this.skillTypeId = skillTypeId;
+		this.scheduledDate = scheduledDate;
 	}
 
 	public SimpleScheduledScreening(Integer scheduledScreeningId, Integer trainee, Integer trainer,

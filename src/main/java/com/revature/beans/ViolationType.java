@@ -8,8 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity 
 @Table(name="VIOLATION_TYPE")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ViolationType {
 
 	@Id

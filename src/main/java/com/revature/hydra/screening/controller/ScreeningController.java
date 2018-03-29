@@ -26,8 +26,10 @@ import com.revature.beans.ViolationType;
 import com.revature.hydra.screening.data.ScheduledScreeningRepository;
 import com.revature.hydra.screening.data.ScreeningRepository;
 import com.revature.hydra.screening.data.SoftSkillViolationRepository;
+import com.revature.hydra.screening.data.ViolationTypeRepository;
 import com.revature.hydra.screening.service.ScreeningCompositionService;
 import com.revature.hydra.screening.wrapper.CommentaryWrapper;
+import com.revature.hydra.screening.wrapper.SoftSkillViolationWrapper;
 import com.revature.hydra.screening.wrapper.ViolationFlagWrapper;
 
 /**
@@ -50,6 +52,9 @@ public class ScreeningController {
 	@Autowired
 	private ScheduledScreeningRepository scheduledScreeningRepository;
 	
+	@Autowired
+	private ViolationTypeRepository violationTypeRepository;
+	
 	private ScreeningCompositionService scs;
 
 	@Autowired
@@ -68,9 +73,22 @@ public class ScreeningController {
 	 * @return List of ViolationType objects
 	 */
 	@RequestMapping(value="/screening/violation/{screeningID}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<SoftSkillViolation>>  softSkillViolationsByScreeningID(@PathVariable(value="screeningID") Integer screeningID){
+	public ResponseEntity<List<SoftSkillViolationWrapper>>  softSkillViolationsByScreeningID(@PathVariable(value="screeningID") Integer screeningID){
 		List<SoftSkillViolation> ssv = scs.softSkillViolationsByScreeningId(screeningID);
-		return new ResponseEntity<List<SoftSkillViolation>>(ssv, HttpStatus.OK);
+		List<SoftSkillViolationWrapper> wrappers = new ArrayList<>();
+		
+		for(SoftSkillViolation s : ssv) {
+			
+			wrappers.add(new SoftSkillViolationWrapper(
+					s.getViolationId(),
+					s.getScreeningId().getScreeningId(), 
+					violationTypeRepository.getOne(s.getViolationId()), 
+					s.getTime(), 
+					s.getComment()
+					));
+		}
+		
+		return new ResponseEntity<List<SoftSkillViolationWrapper>>(wrappers, HttpStatus.OK);
 	}
 	
 	/**
