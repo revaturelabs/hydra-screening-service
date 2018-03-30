@@ -81,7 +81,7 @@ public class ScreeningController {
 		for(SoftSkillViolation s : ssv) {
 			
 			wrappers.add(new SoftSkillViolationWrapper(
-					s.getViolationId(),
+					s.getId(),
 					s.getScreeningId().getScreeningId(), 
 					violationTypeRepository.getOne(s.getViolationId()), 
 					s.getTime(), 

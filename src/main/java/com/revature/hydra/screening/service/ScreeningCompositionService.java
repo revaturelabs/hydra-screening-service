@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.SimpleScreening;
 import com.revature.beans.SimpleTrainee;
@@ -47,6 +48,7 @@ public class ScreeningCompositionService {
 	 * 
 	 * @param softSkillViolationId - the unique id of a softSkillViolation
 	 */
+//	@Transactional
 	public void deleteSoftSkillViolation(Integer softSkillViolationId) {
 		softSkillViolationRepository.delete(softSkillViolationId);
 	}
