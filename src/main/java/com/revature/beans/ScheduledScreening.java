@@ -7,28 +7,32 @@ public class ScheduledScreening {
 	private Integer trainer;
 	private ScheduledStatus status;
 	private Integer scheduledScreeningId;
+	private Integer skillTypeId;
 	private Date scheduledDate;
-
-	public ScheduledScreening(Trainee trainee, Integer trainer, ScheduledStatus status, Date scheduledDate) {
+	public ScheduledScreening() {
 		super();
-		this.trainee = trainee;
-		this.trainer = trainer;
-		this.status = status;
-		this.scheduledDate = scheduledDate;
 	}
 
-	public ScheduledScreening(Integer scheduledScreeningId, Trainee trainee, Integer trainer, ScheduledStatus status,
+	public ScheduledScreening(Trainee trainee, Integer trainer, ScheduledStatus status, Integer skillTypeId,
 			Date scheduledDate) {
 		super();
 		this.trainee = trainee;
 		this.trainer = trainer;
 		this.status = status;
-		this.scheduledScreeningId = scheduledScreeningId;
+		this.skillTypeId = skillTypeId;
 		this.scheduledDate = scheduledDate;
 	}
 
-	public ScheduledScreening() {
+
+	public ScheduledScreening(Trainee trainee, Integer trainer, ScheduledStatus status, Integer scheduledScreeningId,
+			Integer skillTypeId, Date scheduledDate) {
 		super();
+		this.trainee = trainee;
+		this.trainer = trainer;
+		this.status = status;
+		this.scheduledScreeningId = scheduledScreeningId;
+		this.skillTypeId = skillTypeId;
+		this.scheduledDate = scheduledDate;
 	}
 
 	public Trainee getTrainee() {
@@ -63,6 +67,14 @@ public class ScheduledScreening {
 		this.scheduledScreeningId = scheduledScreeningId;
 	}
 
+	public Integer getSkillTypeId() {
+		return skillTypeId;
+	}
+
+	public void setSkillTypeId(Integer skillTypeId) {
+		this.skillTypeId = skillTypeId;
+	}
+
 	public Date getScheduledDate() {
 		return scheduledDate;
 	}
@@ -74,7 +86,11 @@ public class ScheduledScreening {
 	@Override
 	public String toString() {
 		return "ScheduledScreening [trainee=" + trainee + ", trainer=" + trainer + ", status=" + status
-				+ ", scheduledScreeningId=" + scheduledScreeningId + ", scheduledDate=" + scheduledDate + "]";
+				+ ", scheduledScreeningId=" + scheduledScreeningId + ", skillTypeId=" + skillTypeId + ", scheduledDate="
+				+ scheduledDate + ", getTrainee()=" + getTrainee() + ", getTrainer()=" + getTrainer() + ", getStatus()="
+				+ getStatus() + ", getScheduledScreeningId()=" + getScheduledScreeningId() + ", getSkillTypeId()="
+				+ getSkillTypeId() + ", getScheduledDate()=" + getScheduledDate() + ", hashCode()=" + hashCode()
+				+ ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
 	}
 
 	@Override
@@ -83,6 +99,7 @@ public class ScheduledScreening {
 		int result = 1;
 		result = prime * result + ((scheduledDate == null) ? 0 : scheduledDate.hashCode());
 		result = prime * result + ((scheduledScreeningId == null) ? 0 : scheduledScreeningId.hashCode());
+		result = prime * result + ((skillTypeId == null) ? 0 : skillTypeId.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((trainee == null) ? 0 : trainee.hashCode());
 		result = prime * result + ((trainer == null) ? 0 : trainer.hashCode());
@@ -107,6 +124,11 @@ public class ScheduledScreening {
 			if (other.scheduledScreeningId != null)
 				return false;
 		} else if (!scheduledScreeningId.equals(other.scheduledScreeningId))
+			return false;
+		if (skillTypeId == null) {
+			if (other.skillTypeId != null)
+				return false;
+		} else if (!skillTypeId.equals(other.skillTypeId))
 			return false;
 		if (status != other.status)
 			return false;

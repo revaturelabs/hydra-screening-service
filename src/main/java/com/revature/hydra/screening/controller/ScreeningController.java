@@ -29,6 +29,7 @@ import com.revature.hydra.screening.data.SoftSkillViolationRepository;
 import com.revature.hydra.screening.data.ViolationTypeRepository;
 import com.revature.hydra.screening.service.ScreeningCompositionService;
 import com.revature.hydra.screening.wrapper.CommentaryWrapper;
+import com.revature.hydra.screening.wrapper.EndingWrapper;
 import com.revature.hydra.screening.wrapper.SoftSkillViolationWrapper;
 import com.revature.hydra.screening.wrapper.ViolationFlagWrapper;
 
@@ -156,6 +157,7 @@ public class ScreeningController {
 
 		
 		SimpleScreening screening = simpleScreening;
+		screening.setStatus("Pending");
 		SimpleScreening i = screeningRepository.save(screening);
 		return new ResponseEntity<>(i.getScreeningId(),HttpStatus.OK);
 	}
@@ -179,19 +181,16 @@ public class ScreeningController {
 	 * @return An HttpStatus of OK signalling the successful entry of a screening.
 	 */
 	@RequestMapping(value = "/screening/end", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> endScreening(@RequestBody SimpleScreening simpleScreening) {
+	public ResponseEntity<Void> endScreening(@RequestBody EndingWrapper simpleScreening) {
 		screeningRepository.updateScreeningInformationByScreeningId(
-				simpleScreening.getStatus(), 
-				simpleScreening.getSoftSkillsVerdict(), 
-				simpleScreening.getSoftSkillCommentary(),
-				simpleScreening.getEndDateTime(),
-				simpleScreening.getCompositeScore(),
-				simpleScreening.getScreeningId());
-		SimpleScreening ss = screeningRepository.getOne(simpleScreening.getScreeningId());
+				simpleScreening.status, 
+				simpleScreening.softSkillVerdict, 
+				simpleScreening.softSkillCommentary,
+				simpleScreening.endDateTime,
+				simpleScreening.compositeScore,
+				simpleScreening.screeningId);
 		
-		Integer scheduledScreeningId = ss.getSimpleScheduledScreening().getScheduledScreeningId();
-		
-		scheduledScreeningRepository.updateStatus("SCREENED", scheduledScreeningId);
+		scheduledScreeningRepository.updateStatus("Completed", simpleScreening.scheduledScreeningId);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
@@ -226,11 +225,13 @@ public class ScreeningController {
 			SimpleTrainee simpleTrainee = scs.getOneTrainee(traineeId);
 			
 			scheduledScreenings.add(new ScheduledScreening(
-					screening.getScheduledScreeningId(), 
 					new Trainee(simpleTrainee),
-					0, 
+					0,
 					ScheduledStatus.PENDING, 
-					screening.getScheduledDate()));
+					screening.getScheduledScreeningId(),
+					screening.getSkillTypeId(),
+					screening.getScheduledDate())
+					);
 		}
 		
 		return new ResponseEntity<>(scheduledScreenings, HttpStatus.OK);
