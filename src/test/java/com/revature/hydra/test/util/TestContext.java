@@ -1,11 +1,15 @@
 package com.revature.hydra.test.util;
 
+import javax.servlet.ServletContext;
+
 import org.mockito.Mockito;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.eureka.CloudEurekaInstanceConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import com.netflix.appinfo.ApplicationInfoManager;
 import com.netflix.discovery.EurekaClient;
@@ -46,6 +50,21 @@ public class TestContext {
 	@Bean
 	public EurekaClient eurekaClient() {
 		return Mockito.mock(EurekaClient.class);
+	}
+	
+	@Autowired
+	ServletContext context;    
+	
+	@Bean
+	public ServletContext getServletContext() {
+	  return context;
+	}
+	
+	@Bean
+    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
+       RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
+       // add properties here
+       return mapping;
 	}
     
 }
