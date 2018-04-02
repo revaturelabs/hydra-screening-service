@@ -4,6 +4,9 @@ import java.util.Date;
 
 import com.revature.beans.ViolationType;
 
+/**
+ * Wrapper class
+ */
 public class SoftSkillViolationWrapper {
 	public Integer violationID;
 	public Integer screeningID;

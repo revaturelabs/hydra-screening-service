@@ -8,14 +8,28 @@ import org.springframework.context.annotation.Configuration;
 
 import com.revature.hydra.screening.service.ScreeningCompositionService;
 
+/**
+ * Configuration class for required beans
+ */
 @Configuration
 public class RepositoryProducerConfiguration {
 
+	/**
+	 * For injecting AmqpTemplate
+	 * 
+	 * @param factory Connection Factory
+	 * @return AmqpTemplate
+	 */
 	@Bean
 	public AmqpTemplate rabbitTemplate(ConnectionFactory factory) {
 		return new RabbitTemplate(factory);
 	}
 
+	/**
+	 * For injecting ScreeningCompositionService
+	 * 
+	 * @return ScreeningCompositionService
+	 */
 	@Bean
 	public ScreeningCompositionService screeningCompositionService() {
 		return new ScreeningCompositionService();

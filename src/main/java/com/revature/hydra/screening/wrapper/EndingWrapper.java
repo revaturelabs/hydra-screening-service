@@ -2,6 +2,9 @@ package com.revature.hydra.screening.wrapper;
 
 import java.util.Date;
 
+/**
+ * Wrapper class
+ */
 public class EndingWrapper {
 	public String status;
 	public Boolean softSkillVerdict;
