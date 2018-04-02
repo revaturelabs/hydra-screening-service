@@ -39,10 +39,9 @@ public class ScreeningCompositionMessagingService {
 		traineeRequest.addProperty("methodName", "findOne");
 		traineeRequest.addProperty("traineeId", traineeId);
 		
-		SimpleTrainee st =  (SimpleTrainee)rabbitTemplate.convertSendAndReceive(RABBIT_REPO_EXCHANGE,
+		return (SimpleTrainee)rabbitTemplate.convertSendAndReceive(RABBIT_REPO_EXCHANGE,
 				SINGLE_TRAINEE_ROUTING_KEY,
 				traineeRequest.toString());
-		return st;
 	}
 	
 }

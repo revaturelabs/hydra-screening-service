@@ -26,6 +26,7 @@ public class SimpleTrainer implements Serializable {
 		this.tier = tier;
 	}
 
+	
 	public SimpleTrainer(Trainer trainer) {
 		super();
 		this.trainerId = trainer.getTrainerId();
@@ -34,6 +35,7 @@ public class SimpleTrainer implements Serializable {
 		this.title = trainer.getTitle();
 		this.tier = trainer.getTier();
 	}
+	
 
 	public Integer getTrainerId() {
 		return trainerId;

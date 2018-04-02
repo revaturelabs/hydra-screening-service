@@ -106,6 +106,7 @@ public class SimpleTrainee implements Serializable {
 		this.projectCompletion = projectCompletion;
 	}
 
+	
 	public SimpleTrainee(Trainee trainee) {
 		super();
 		this.traineeId = trainee.getTraineeId();
@@ -123,6 +124,7 @@ public class SimpleTrainee implements Serializable {
 		this.techScreenerName = trainee.getTechScreenerName();
 		this.projectCompletion = trainee.getProjectCompletion();
 	}
+	
 
 	public Integer getTraineeId() {
 		return traineeId;

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.SimpleScreening;
 import com.revature.beans.SimpleTrainee;
@@ -39,8 +38,7 @@ public class ScreeningCompositionService {
 	 * @return A SimpleTrainee object
 	 */
 	public SimpleTrainee getOneTrainee(Integer id) {
-		SimpleTrainee st = scms.sendSingleTraineeRequest(id);
-		return st;
+		return scms.sendSingleTraineeRequest(id);
 	}
 	
 	/**
@@ -70,8 +68,7 @@ public class ScreeningCompositionService {
 	 * @return List of SoftSkillViolation objects
 	 */
 	public List<SoftSkillViolation> softSkillViolationsByScreeningId (Integer screeningId){
-		List<SoftSkillViolation> sv = softSkillViolationRepository.findByScreeningId(new SimpleScreening(screeningId));
-		return sv;
+		return softSkillViolationRepository.findByScreeningId(new SimpleScreening(screeningId));
 	}
 	
 	/**
@@ -80,8 +77,7 @@ public class ScreeningCompositionService {
 	 * @return List of ViolationType objects
 	 */
 	public List<ViolationType> violationTypes (){
-		List<ViolationType> vt = violationRepository.findAll();
-		return  vt;
+		return  violationRepository.findAll();
 	}
 	
 	/**

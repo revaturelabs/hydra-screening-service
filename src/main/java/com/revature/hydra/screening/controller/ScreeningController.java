@@ -89,7 +89,7 @@ public class ScreeningController {
 					));
 		}
 		
-		return new ResponseEntity<List<SoftSkillViolationWrapper>>(wrappers, HttpStatus.OK);
+		return new ResponseEntity<>(wrappers, HttpStatus.OK);
 	}
 	
 	/**
@@ -100,7 +100,7 @@ public class ScreeningController {
 	@RequestMapping(value="/violation/all", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ViolationType>>getViolationTypes(){
 		List<ViolationType> vios = scs.violationTypes();
-		return new ResponseEntity<List<ViolationType>>(vios, HttpStatus.OK);
+		return new ResponseEntity<>(vios, HttpStatus.OK);
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class ScreeningController {
 	@RequestMapping(value="/violation/delete/{softSkillViolationID}", method= RequestMethod.GET)
 	public ResponseEntity<String> deleteSoftSkillViolation (@PathVariable(value="softSkillViolationID") Integer softSkillViolationID) {
 		scs.deleteSoftSkillViolation(softSkillViolationID);
-		return new ResponseEntity<String>("Delete Completed", HttpStatus.OK);
+		return new ResponseEntity<>("Delete Completed", HttpStatus.OK);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class ScreeningController {
 		scs.updateAboutMeCommentary(
 				comment.comment, 
 				comment.screeningId);
-		return new ResponseEntity<String>("Update introComment Completed", HttpStatus.OK); 
+		return new ResponseEntity<>("Update introComment Completed", HttpStatus.OK); 
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class ScreeningController {
 	@RequestMapping(value = "/screening/generalcomment", method = RequestMethod.POST)
 	public ResponseEntity<String> storeGeneralComment(@RequestBody CommentaryWrapper comment){
 		scs.updateGeneralCommentary(comment.comment, comment.screeningId);
-		return new ResponseEntity<String>( "Update General Comment Success!",HttpStatus.OK);
+		return new ResponseEntity<>( "Update General Comment Success!",HttpStatus.OK);
 	}
 	
 	/**
@@ -192,7 +192,7 @@ public class ScreeningController {
 		
 		scheduledScreeningRepository.updateStatus("Completed", simpleScreening.scheduledScreeningId);
 		
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	/**
@@ -203,7 +203,7 @@ public class ScreeningController {
 	 */
 	@RequestMapping(value="/screening/getScreening/status/{status}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<SimpleScreening>> getScreenings(@PathVariable(value="status") String status){
-		return new ResponseEntity<List<SimpleScreening>>(screeningRepository.findByStatus(status), HttpStatus.OK);
+		return new ResponseEntity<>(screeningRepository.findByStatus(status), HttpStatus.OK);
 	}
 	
 

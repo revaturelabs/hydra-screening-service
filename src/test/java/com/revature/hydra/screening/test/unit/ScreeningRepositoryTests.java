@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.revature.beans.SimpleScreening;
@@ -46,14 +45,16 @@ public class ScreeningRepositoryTests {
 	
 	@Test
 	public final void testChangeAboutMeCommentaryByScreeningId() {
-		sr.changeAboutMeCommentaryByScreeningId("splargh", ssId);
-		Assert.assertEquals(sr.findOne(ssId).getAboutMeCommentary(), "splargh");
+		String splargh = "splargh";
+		sr.changeAboutMeCommentaryByScreeningId(splargh, ssId);
+		Assert.assertEquals(sr.findOne(ssId).getAboutMeCommentary(), splargh);
 	}
 	
 	@Test
 	public final void testChangeGeneralCommentaryByScreeningId() {
-		sr.changeGeneralCommentaryByScreeningId("splargh", ssId);
-		Assert.assertEquals(sr.findOne(ssId).getGeneralCommentary(), "splargh");
+		String splargh = "splargh";
+		sr.changeGeneralCommentaryByScreeningId(splargh, ssId);
+		Assert.assertEquals(sr.findOne(ssId).getGeneralCommentary(), splargh);
 	}
 	
 	@Test

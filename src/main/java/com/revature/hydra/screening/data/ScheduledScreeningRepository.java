@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.beans.ScheduledStatus;
 import com.revature.beans.SimpleScheduledScreening;
 
 public interface ScheduledScreeningRepository extends JpaRepository<SimpleScheduledScreening, Integer> {

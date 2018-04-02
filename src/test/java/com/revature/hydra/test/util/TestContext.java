@@ -16,16 +16,9 @@ import com.netflix.discovery.EurekaClient;
 
 @Configuration
 public class TestContext {
- 
-	/*@Bean
-	public QuestionCompositionService questionCompositionService() {
-		return Mockito.mock(QuestionCompositionService.class);
-	}*/
 	
-	/*@Bean
-	public SimpleQuestionRepository simpleQuestionRepository() {
-		return Mockito.mock(SimpleQuestionRepository.class);
-	}*/
+	@Autowired
+	ServletContext context; 
 	
 	@Bean
 	public AmqpTemplate amqpTemplate() {
@@ -38,7 +31,7 @@ public class TestContext {
 	}
 	
 	@Bean 
-	public CloudEurekaInstanceConfig CloudEurekaInstanceConfig() {
+	public CloudEurekaInstanceConfig cloudEurekaInstanceConfig() {
 		return Mockito.mock(CloudEurekaInstanceConfig.class);
 	}
 	
@@ -50,10 +43,7 @@ public class TestContext {
 	@Bean
 	public EurekaClient eurekaClient() {
 		return Mockito.mock(EurekaClient.class);
-	}
-	
-	@Autowired
-	ServletContext context;    
+	}   
 	
 	@Bean
 	public ServletContext getServletContext() {
@@ -62,9 +52,7 @@ public class TestContext {
 	
 	@Bean
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-       RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
-       // add properties here
-       return mapping;
+       return new RequestMappingHandlerMapping();
 	}
     
 }

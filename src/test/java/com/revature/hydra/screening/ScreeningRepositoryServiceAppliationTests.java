@@ -11,6 +11,7 @@ public class ScreeningRepositoryServiceAppliationTests {
 	
 	@Test
 	public void contextLoads() {
+		// Empty!
 	}
 	
 }
